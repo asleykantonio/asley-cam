@@ -45,7 +45,7 @@ def capture_frames():
     frames = []
 
     for i in range(3):
-        countdown(5)
+        countdown(3)
         frame = get_frame()
         
         if frame is not None:
