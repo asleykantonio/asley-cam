@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>asley-cam photobooth</title>
+    <style>
+
+        body {
+            font-family: couriers, monospace;
+            text-align: center;
+            padding: 50px;
+            font-size: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 640px;
+            border: 4px solid #333;
+            border-radius: 8px;
+            background-color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>got your three poses ready?</h1>
+    <p>click the button below to capture some photos!</p>
+
+    <video id="webcam" autoplay playsinline></video>
+
+    <script>
+        const video = document.getElementById('webcam');
+
+        // request permission
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error("Error accessing the webcam: ", error);
+                alert("Could not access webcam. Please ensure permissions are granted.");
+            });
+    </script>
+
+    <form action="/take_pics" method="POST">
+        <button type="submit">begin</button>
+    </form>
+</body>
+</html>
