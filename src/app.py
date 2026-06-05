@@ -29,6 +29,18 @@ def photostrip():
 def get_photo(index):
     return send_file(f"photo_{index}.jpg", mimetype="image/jpeg")
 
+@app.route("/video_feed")
+def video_feed():
+    def generate():
+        cap = cv2.VideoCapture(0)
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            _, buffer = cv2.imencode('.jpg', frame)
+            yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 ## take pics and display photostrip
 @app.route("/stream")
 def stream():
