@@ -13,10 +13,10 @@ def strip_layout(frames_names):
         strip.paste(frame, (80, 80+500*i)) # paste the frame onto the strip at the correct position
         photo_name = f"photo_{i}.jpg"
         strip.save(photo_name)
-        yield i
+        #yield i
     
     strip.save("photostrip.jpg") # save the photostrip as an image file
-    #return strip
+    return strip
 
 def get_photostrip(index):
     photo_name = f"photo_{index}.jpg"

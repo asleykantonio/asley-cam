@@ -21,10 +21,9 @@ def capture():
     return render_template("capture.html")
 
 ## used to display step by step photostrip
-@app.route("/photostrip/<int:index>", methods=["POST"])
-def photostrip(index):
-    photo = layout.get_photostrip(index)
-    return render_template("capture.html", photo=photo)
+@app.route("/photostrip")
+def photostrip():
+    return send_file("photostrip.jpg", mimetype="image/jpeg")
 
 @app.route("/photo/<int:index>")
 def get_photo(index):
@@ -44,11 +43,9 @@ def stream():
             key=lambda f: int(re.search(r'\d+', f).group())
         )
 
-        # format the photostrip
-        for i in layout.strip_layout(frames_names):
-            yield f"data: {json.dumps({'index': i, 'url': f'/photo/{i}'})}\n\n"
+        layout.strip_layout(frames_names)  # just call it normally
 
-        # display the photostrip
-        #strip.show()
+        yield f"data: {json.dumps({'url': '/photostrip'})}\n\n"
+
     return Response(generate(), mimetype="text/event-stream")
 
