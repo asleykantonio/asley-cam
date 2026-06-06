@@ -4,22 +4,22 @@ from cv2 import VideoCapture, imshow, waitKey
 import time
 import random
 
+cam = VideoCapture(0) # init camera, 0 is built-in cam
+
 ## function to get one frame
 def get_frame():
-
-    cam = VideoCapture(0) # init camera, 0 is built-in cam
 
     if not cam.isOpened():
         print("Error: Could not open camera")
         return None
     
-    for i in range(1): # warm up the camera 
+    for i in range(3): # warm up the camera 
          cam.read()
 
     # read the current frame from the camera
     ret, frame = cam.read()
 
-    cam.release() 
+    #cam.release() 
 
     if ret:        
         print("Frame captured successfully")
@@ -45,7 +45,7 @@ def capture_frames():
     frames = []
 
     for i in range(3):
-        countdown(3)
+        countdown(5)
         frame = get_frame()
         
         if frame is not None:
@@ -56,4 +56,5 @@ def capture_frames():
         else:
             print("Error: Could not capture frame")
     
+    cam.release()
     return frames

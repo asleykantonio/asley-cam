@@ -4,6 +4,7 @@ from time import time
 import re
 
 import camera, layout, printer
+from camera import cam
 import cv2
 from cv2 import imshow, waitKey
 
@@ -34,9 +35,9 @@ def get_photo(index):
 @app.route("/video_feed")
 def video_feed():
     def generate():
-        cap = cv2.VideoCapture(0)
+        #cap = cv2.VideoCapture(0)
         while True:
-            ret, frame = cap.read()
+            ret, frame = cam.read()
             if not ret:
                 break
             _, buffer = cv2.imencode('.jpg', frame)
