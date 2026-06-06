@@ -15,7 +15,8 @@ def strip_layout(frames_names):
         strip.save(photo_name)
         #yield i
     
-    strip.save("photostrip.jpg") # save the photostrip as an image file
+    flip_strip = strip.transpose(PIL.Image.FLIP_LEFT_RIGHT) # mirror
+    flip_strip.save("photostrip.jpg") # save the photostrip as an image file
     return strip
 
 def get_photostrip(index):

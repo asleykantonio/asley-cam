@@ -25,10 +25,12 @@ def capture():
 def photostrip():
     return send_file("photostrip.jpg", mimetype="image/jpeg")
 
+## used for rendering the photostrip
 @app.route("/photo/<int:index>")
 def get_photo(index):
     return send_file(f"photo_{index}.jpg", mimetype="image/jpeg")
 
+## used for the live webcam feed
 @app.route("/video_feed")
 def video_feed():
     def generate():
@@ -55,7 +57,7 @@ def stream():
             key=lambda f: int(re.search(r'\d+', f).group())
         )
 
-        layout.strip_layout(frames_names)  # just call it normally
+        layout.strip_layout(frames_names) 
 
         yield f"data: {json.dumps({'url': '/photostrip'})}\n\n"
 

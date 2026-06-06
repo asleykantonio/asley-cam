@@ -19,6 +19,7 @@
             border: 4px solid #333;
             border-radius: 8px;
             background-color: #000;
+            transform: scaleX(-1);
         }
 
         #strip img {
@@ -28,6 +29,10 @@
             display: block;
             border: 4px solid #333;
             border-radius: 8px;
+        }
+
+        #begin-btn:disabled {
+            cursor: not-allowed;
         }
 
     </style>
@@ -40,9 +45,13 @@
 
     <div id="strip"></div>
 
-    <button id="begin-btn" onclick="startCapture()">begin</button>
+    <button id="begin-btn" disabled onclick="startCapture()">begin</button>
 
     <script>
+        window.addEventListener("load", function() {
+            document.getElementById('begin-btn').disabled = false;
+        });
+        
         function startCapture() {
             document.getElementById('begin-btn').disabled = true;
 
